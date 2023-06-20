@@ -27,8 +27,6 @@ namespace AiAdventure.Controllers
         {
             var api = new OpenAIAPI(_key);
 
-
-            var request = _configuration.GetSection("OpenAi")["request"];
             var chat = api.Chat.CreateConversation();
 
             chat.AppendSystemMessage(_configuration.GetSection("OpenAi")["rules"]);
