@@ -1,12 +1,11 @@
 ﻿namespace AiAdventure.Domain.Entities
 {
-    public class Character
+    public class Creature
     {
         public Guid Id { get; set; }
-        public Guid TurnId { get; set; }
+        public Guid OriginalLocationId { get; set; }
         public string Name { get; set; }
-        public char Gender { get; set; }
-        public string Class { get; set; }
+        public string Race { get; set; }
         public int Strength { get; set; }
         public int Dexterity { get; set; }
         public int Constitution { get; set; }
@@ -16,12 +15,8 @@
         public int HitPoints { get; set; }
         public int ArmorClass { get; set; }
         public int Health { get; set; }
-        public float Experience { get; set; }
         public int Level { get; set; }
 
-        public ICollection<Skill> Skills { get; set; }
-        public ICollection<Proficiency> Proficiencies { get; set; }
-        public ICollection<Feature> Features { get; set; }
-        public ICollection<Item> Inventory { get; set; }
+        public Location OriginalLocation { get; set; }
     }
 }
