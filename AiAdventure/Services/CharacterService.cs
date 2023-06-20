@@ -27,8 +27,9 @@ namespace AiAdventure.Services
             var hitpoints = JsonHandle.GetTokenValueInt(character, "data.hitPoints");
             var armorClass = JsonHandle.GetTokenValueInt(character, "data.armorClass");
             var health = JsonHandle.GetTokenValueInt(character, "data.health");
+            var gold = JsonHandle.GetTokenValueString(character, "data.gold");
 
-            var newCharacter = Character.Create(Guid.NewGuid(), name, gender, race, @class, background, strength, dexterity, constitution, intelligence, wisdom, charisma, hitpoints, armorClass, health, experience, maxExperience, level);
+            var newCharacter = Character.Create(Guid.NewGuid(), name, gender, race, @class, background, strength, dexterity, constitution, intelligence, wisdom, charisma, hitpoints, armorClass, health, gold, experience, maxExperience, level);
 
             var skillsObject = (JObject)character["data"]["skills"];
 
