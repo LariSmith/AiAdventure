@@ -17,6 +17,7 @@
         public int HitPoints { get; private set; }
         public int ArmorClass { get; private set; }
         public int Health { get; private set; }
+        public int Gold { get; private set; }
         public float Experience { get; private set; }
         public float MaxExperience { get; private set; }
         public int Level { get; private set; }
@@ -31,7 +32,7 @@
         private readonly HashSet<Feature> _featureList = new HashSet<Feature>();
         private readonly HashSet<Item> _itemList = new HashSet<Item>();
 
-        private Character(Guid id, string name, string gender, string race, string @class, string background, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int hitPoints, int armorClass, int health, float experience, float maxExperience, int level)
+        private Character(Guid id, string name, string gender, string race, string @class, string background, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int hitPoints, int armorClass, int health, int gold, float experience, float maxExperience, int level)
         {
             Id = id;
             Name = name;
@@ -48,14 +49,15 @@
             HitPoints = hitPoints;
             ArmorClass = armorClass;
             Health = health;
+            Gold = gold;
             Experience = experience;
             MaxExperience = maxExperience;
             Level = level;
         }
         
-        public static Character Create(Guid id, string name, string gender, string race, string @class, string background, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int hitPoints, int armorClass, int health, float experience, float maxExperience, int level)
+        public static Character Create(Guid id, string name, string gender, string race, string @class, string background, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int hitPoints, int armorClass, int health, int gold, float experience, float maxExperience, int level)
         {
-            return new Character(id, name, gender, race, @class, background, strength, dexterity, constitution, intelligence, wisdom, charisma, hitPoints, armorClass, health, experience, maxExperience, level);
+            return new Character(id, name, gender, race, @class, background, strength, dexterity, constitution, intelligence, wisdom, charisma, hitPoints, armorClass, health, gold, experience, maxExperience, level);
         }
     
         public Skill AddSkill(string description, int points)
