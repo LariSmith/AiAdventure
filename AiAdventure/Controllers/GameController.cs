@@ -38,7 +38,7 @@ namespace AiAdventure.Controllers
             chat.AppendUserInput("Generate Character");
             chat.AppendExampleChatbotOutput("{\r\n\"status\": \"success\",\r\n\"data\": {\r\n\"name\": \"Alistair\",\r\n\"race\": \"Human\",\r\n\"gender\": \"Male\",\r\n\"class\": \"Rogue\",\r\n\"level\": 3,\r\n\"health\": 24,\r\n\"gold\": 50,\r\n\"experience\": 1250.00,\r\n\"maxExperience\": 3000.00,\r\n\"strength\": 10,\r\n\"dexterity\": 18,\r\n\"Constitution\": 12,\r\n\"Intelligence\": 14,\r\n\"Wisdom\": 13,\r\n\"Charisma\": 16,\r\n\"background\": \"Criminal\",\r\n\"skills\": {\r\n\"Acrobatics\": 5,\r\n\"Sleight of Hand\": 4,\r\n\"Stealth\": 6,\r\n\"Deception\": 5,\r\n\"Insight\": 3,\r\n\"Perception\": 5\r\n},\r\n\"hitPoints\": 24,\r\n\"armorClass\": 15,\r\n\"proficiencies\": {\r\n\"armor\": [],\r\n\"weapons\": [\"Daggers\", \"Shortsword\", \"Rapier\"],\r\n\"tools\": [\"Thieves' Tools\"],\r\n\"savingThrows\": [\"Dexterity\", \"Intelligence\"],\r\n\"languages\": [\"Common\", \"Thieves' Cant\"]\r\n},\r\n\"classFeatures\": {\r\n\"Sneak Attack\": \"1d6\",\r\n\"Cunning Action\": \"Dash, Disengage, or Hide as a bonus action\",\r\n\"Roguish Archetype\": \"Assassin\"\r\n},\r\n\"inventory\": {\r\n\"Dagger\": 2,\r\n\"Shortsword\": 1,\r\n\"Thieves' Tools\": 1,\r\n\"Potion of Healing\": 2\r\n},\r\n\"backgroundFeature\": \"Criminal Contact\"\r\n}\r\n}");
 
-            chat.AppendUserInput(request);
+            chat.AppendUserInput("Generate Character");
             string response = await chat.GetResponseFromChatbotAsync();
 
             var json = JObject.Parse(response);
