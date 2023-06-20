@@ -1,9 +1,8 @@
-﻿using AiAdventure.Domain.Primitives;
-
-namespace AiAdventure.Domain.Entities
+﻿namespace AiAdventure.Domain.Entities
 {
-    public class Character : Entity
+    public class Character
     {
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public char Gender { get; set; }
         public string Class { get; set; }
