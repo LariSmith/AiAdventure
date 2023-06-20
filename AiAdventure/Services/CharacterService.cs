@@ -16,20 +16,20 @@ namespace AiAdventure.Services
             var level = JsonHandle.GetTokenValueInt(character, "data.level");
             var experience = JsonHandle.GetTokenValueFloat(character, "data.experience");
             var maxExperience = JsonHandle.GetTokenValueFloat(character, "data.maxExperience");
-            var strength = JsonHandle.GetTokenValueInt(character, "data.strenght");
+            var strength = JsonHandle.GetTokenValueInt(character, "data.strength");
             var dexterity = JsonHandle.GetTokenValueInt(character, "data.dexterity");
-            var constitution = JsonHandle.GetTokenValueInt(character, "data.constiturion");
-            var intelligence = JsonHandle.GetTokenValueInt(character, "data.intelligence");
-            var wisdom = JsonHandle.GetTokenValueInt(character, "data.wisdom");
-            var charisma = JsonHandle.GetTokenValueInt(character, "data.charisma");
+            var constitution = JsonHandle.GetTokenValueInt(character, "data.Constitution");
+            var intelligence = JsonHandle.GetTokenValueInt(character, "data.Intelligence");
+            var wisdom = JsonHandle.GetTokenValueInt(character, "data.Wisdom");
+            var charisma = JsonHandle.GetTokenValueInt(character, "data.Charisma");
             var background = JsonHandle.GetTokenValueString(character, "data.background");
-            var hitpoints = JsonHandle.GetTokenValueInt(character, "data.hitpoints");
+            var hitpoints = JsonHandle.GetTokenValueInt(character, "data.hitPoints");
             var armorClass = JsonHandle.GetTokenValueInt(character, "data.armorClass");
             var health = JsonHandle.GetTokenValueInt(character, "data.health");
 
             var newCharacter = Character.Create(Guid.NewGuid(), name, gender, race, @class, background, strength, dexterity, constitution, intelligence, wisdom, charisma, hitpoints, armorClass, health, experience, maxExperience, level);
 
-            var skillsObject = (JObject)character["skills"];
+            var skillsObject = (JObject)character["data"]["skills"];
 
             foreach (var skill in skillsObject)
             {
@@ -39,7 +39,7 @@ namespace AiAdventure.Services
                 newCharacter.AddSkill(skillName, skillValue);
             }
 
-            var featuresObject = (JObject)character["classFeatures"];
+            var featuresObject = (JObject)character["data"]["classFeatures"];
 
             foreach (var feature in featuresObject)
             {
@@ -49,7 +49,7 @@ namespace AiAdventure.Services
                 newCharacter.AddFeature(featureName, featureDescription);
             }
 
-            var proficienciesObject = (JObject)character["proficiencies"];
+            var proficienciesObject = (JObject)character["data"]["proficiencies"];
 
             foreach (var proficiency in proficienciesObject)
             {
@@ -59,7 +59,7 @@ namespace AiAdventure.Services
                 newCharacter.AddProficiency(proficiencyType, proficiencyList);
             }
 
-            var inventoryArray = (JArray)character["inventory"];
+            var inventoryArray = (JArray)character["data"]["inventory"];
 
             foreach (var item in inventoryArray)
             {
