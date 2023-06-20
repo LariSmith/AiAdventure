@@ -7,7 +7,7 @@
         public string Type { get; private set; }
         public string List { get; private set; }
 
-        public Character Character { get; private set; }
+        public Character? Character { get; private set; }
 
         internal Proficiency(Guid id, Guid characterId, string type, string list)
         {

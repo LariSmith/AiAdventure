@@ -7,7 +7,7 @@
         public string Name { get; private set; }
         public string Description { get; private set; }
 
-        public Character Character { get; private set; }
+        public Character? Character { get; private set; }
 
         internal Feature(Guid id, Guid characterId, string name, string description)
         {

@@ -7,7 +7,7 @@
         public string Name { get; private set; }
         public int Quantity { get; private set; }
 
-        public Character Character { get; private set; }
+        public Character? Character { get; private set; }
 
         internal Item(Guid id, Guid characterId, string name, int quantity)
         {
