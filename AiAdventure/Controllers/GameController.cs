@@ -1,4 +1,5 @@
-﻿using AiAdventure.Interfaces;
+﻿using AiAdventure.Domain.Entities;
+using AiAdventure.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using OpenAI_API;
@@ -22,7 +23,7 @@ namespace AiAdventure.Controllers
 
         [HttpPost]
         [Route("new-character")]
-        public async Task<string> CreateCharacter()
+        public async Task<Character> CreateCharacter()
         {
             //var api = new OpenAIAPI(_key);
 
@@ -35,8 +36,7 @@ namespace AiAdventure.Controllers
             var json = JObject.Parse(response);
             var character = _characterService.Create(json);
 
-            return response;
-
+            return character;
         }
     }
 }

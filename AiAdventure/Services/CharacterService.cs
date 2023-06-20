@@ -1,6 +1,7 @@
 ﻿using AiAdventure.Domain.Entities;
 using AiAdventure.Interfaces;
 using Newtonsoft.Json.Linq;
+using System.Text;
 
 namespace AiAdventure.Services
 {
@@ -54,18 +55,21 @@ namespace AiAdventure.Services
             foreach (var proficiency in proficienciesObject)
             {
                 var proficiencyType = proficiency.Key;
-                var proficiencyList = proficiency.Value.Value<string>();
+                var proficiencyArray = (JArray)proficiency.Value;
 
-                newCharacter.AddProficiency(proficiencyType, proficiencyList);
+                var proficiencyValues = string.Join(", ", proficiencyArray);
+
+                newCharacter.AddProficiency(proficiencyType, proficiencyValues);
             }
 
-            var inventoryArray = (JArray)character["data"]["inventory"];
+            var inventoryArray = (JObject)character["data"]["inventory"];
 
             foreach (var item in inventoryArray)
             {
-                var itemName = item.Value<string>();
+                var itemName = item.Key;
+                var itemQuantity = item.Value.Value<int>();
 
-                newCharacter.AddItem(itemName, 1);
+                newCharacter.AddItem(itemName, itemQuantity);
             }
 
             return newCharacter;
