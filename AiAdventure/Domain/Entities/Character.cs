@@ -51,9 +51,9 @@
             Level = level;
         }
         
-        public virtual Character Create(Guid id, Guid turnId, string name, char gender, string @class, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int hitPoints, int armorClass, int health, float experience, int level)
+        public virtual Character Create(Guid id, Guid turnId, string name, char gender, string @class, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int hitPoints, int armorClass, int health, float experience, float maxExperience, int level)
         {
-            return new Character(id, turnId, name, gender, @class, strength, dexterity, constitution, intelligence, wisdom, charisma, hitPoints, armorClass, health, experience, level);
+            return new Character(id, turnId, name, gender, @class, strength, dexterity, constitution, intelligence, wisdom, charisma, hitPoints, armorClass, health, experience, maxExperience, level);
         }
     
         public Skill AddSkill(string description, int points)

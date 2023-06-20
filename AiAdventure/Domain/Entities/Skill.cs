@@ -9,12 +9,12 @@
 
         public Character Character { get; private set; }
 
-        internal Skill(Guid id, Guid characterId, string description, int poins)
+        internal Skill(Guid id, Guid characterId, string description, int points)
         {
             Id = id;
             CharacterId = characterId;
             Description = description;
-            Points = poins;
+            Points = points;
         }
     }
 }
