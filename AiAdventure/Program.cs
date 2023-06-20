@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 
 using AiAdventure.Data;
+using AiAdventure.Interfaces;
+using AiAdventure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AiAdventureContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddTransient<ICharacterService, CharacterService>();
 
 var app = builder.Build();
 

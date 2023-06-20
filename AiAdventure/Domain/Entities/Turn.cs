@@ -3,6 +3,7 @@
     public class Turn
     {
         public Guid Id { get; set; }
+        public Guid CharacterId { get; set; }
         public int Number { get; set; }
         public string Weather { get; set; }
         public string Scene { get; set; }

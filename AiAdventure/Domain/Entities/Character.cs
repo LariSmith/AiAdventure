@@ -3,10 +3,11 @@
     public class Character
     {
         public Guid Id { get; private set; }
-        public Guid TurnId { get; private set; }
         public string Name { get; private set; }
-        public char Gender { get; private set; }
+        public string Gender { get; private set; }
+        public string Race { get; private set; }
         public string Class { get; private set; }
+        public string Background { get; private set; }
         public int Strength { get; private set; }
         public int Dexterity { get; private set; }
         public int Constitution { get; private set; }
@@ -25,18 +26,19 @@
         public IReadOnlyCollection<Feature> Features => _featureList;
         public IReadOnlyCollection<Item> Inventory => _itemList;
 
-        private HashSet<Skill> _skillList = new HashSet<Skill>();
-        private HashSet<Proficiency> _proficienciesList = new HashSet<Proficiency>();
-        private HashSet<Feature> _featureList = new HashSet<Feature>();
-        private HashSet<Item> _itemList = new HashSet<Item>();
+        private readonly HashSet<Skill> _skillList = new HashSet<Skill>();
+        private readonly HashSet<Proficiency> _proficienciesList = new HashSet<Proficiency>();
+        private readonly HashSet<Feature> _featureList = new HashSet<Feature>();
+        private readonly HashSet<Item> _itemList = new HashSet<Item>();
 
-        private Character(Guid id, Guid turnId, string name, char gender, string @class, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int hitPoints, int armorClass, int health, float experience, float maxExperience, int level)
+        private Character(Guid id, string name, string gender, string race, string @class, string background, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int hitPoints, int armorClass, int health, float experience, float maxExperience, int level)
         {
             Id = id;
-            TurnId = turnId;
             Name = name;
             Gender = gender;
+            Race = race;
             Class = @class;
+            Background = background;
             Strength = strength;
             Dexterity = dexterity;
             Constitution = constitution;
@@ -51,9 +53,9 @@
             Level = level;
         }
         
-        public virtual Character Create(Guid id, Guid turnId, string name, char gender, string @class, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int hitPoints, int armorClass, int health, float experience, float maxExperience, int level)
+        public static Character Create(Guid id, string name, string gender, string race, string @class, string background, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int hitPoints, int armorClass, int health, float experience, float maxExperience, int level)
         {
-            return new Character(id, turnId, name, gender, @class, strength, dexterity, constitution, intelligence, wisdom, charisma, hitPoints, armorClass, health, experience, maxExperience, level);
+            return new Character(id, name, gender, race, @class, background, strength, dexterity, constitution, intelligence, wisdom, charisma, hitPoints, armorClass, health, experience, maxExperience, level);
         }
     
         public Skill AddSkill(string description, int points)
@@ -64,7 +66,7 @@
             return newsSkill;
         }
 
-        public Proficiency AddProficiency(string type, string list)
+        public Proficiency AddProficiency(string type, string? list)
         {
             var newProficiency = new Proficiency(Guid.NewGuid(), Id, type, list);
             _proficienciesList.Add(newProficiency);
@@ -114,5 +116,6 @@
             Level++;
             IncreaseExperience(value);
         }
+
     }
 }
