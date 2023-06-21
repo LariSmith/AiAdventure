@@ -35,7 +35,7 @@
         private readonly HashSet<Feature> _featureList = new HashSet<Feature>();
         private readonly HashSet<Item> _itemList = new HashSet<Item>();
 
-        private Character(Guid id, Guid playerId, string name, string gender, string race, string @class, string background, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int hitPoints, int armorClass, int health, int gold, float experience, float maxExperience, int level)
+        internal Character(Guid id, Guid playerId, string name, string gender, string race, string @class, string background, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int hitPoints, int armorClass, int health, int gold, float experience, float maxExperience, int level)
         {
             Id = id;
             PlayerId = playerId;
@@ -58,12 +58,7 @@
             MaxExperience = maxExperience;
             Level = level;
         }
-        
-        public static Character Create(Guid id, Guid playerId, string name, string gender, string race, string @class, string background, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int hitPoints, int armorClass, int health, int gold, float experience, float maxExperience, int level)
-        {
-            return new Character(id, playerId, name, gender, race, @class, background, strength, dexterity, constitution, intelligence, wisdom, charisma, hitPoints, armorClass, health, gold, experience, maxExperience, level);
-        }
-    
+            
         public Skill AddSkill(string description, int points)
         {
             var newsSkill = new Skill(Guid.NewGuid(), Id, description, points);
