@@ -17,6 +17,8 @@ builder.Services.AddDbContext<AiAdventureContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddTransient<ICharacterService, CharacterService>();
+builder.Services.AddTransient<IPlayerService, PlayerService>();
+builder.Services.AddTransient<IPasswordHandler, PasswordHandler>();
 
 var app = builder.Build();
 
