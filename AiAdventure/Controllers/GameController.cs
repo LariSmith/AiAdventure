@@ -49,9 +49,8 @@ namespace AiAdventure.Controllers
                 var response = chat.Choices[0].Message;
 
                 var json = JObject.Parse(response.Content);
-                var character = _characterService.Create(json);
 
-                return Ok(character);
+                return Ok(response);
             } 
             catch (Exception ex)
             {

@@ -3,6 +3,7 @@
     public class Character
     {
         public Guid Id { get; private set; }
+        public Guid PlayerId { get; private set; }
         public string Name { get; private set; }
         public string Gender { get; private set; }
         public string Race { get; private set; }
@@ -22,6 +23,8 @@
         public float MaxExperience { get; private set; }
         public int Level { get; private set; }
 
+        public Player Player { get; private set; }
+
         public IReadOnlyCollection<Skill> Skills => _skillList;
         public IReadOnlyCollection<Proficiency> Proficiencies => _proficienciesList;
         public IReadOnlyCollection<Feature> Features => _featureList;
@@ -32,9 +35,10 @@
         private readonly HashSet<Feature> _featureList = new HashSet<Feature>();
         private readonly HashSet<Item> _itemList = new HashSet<Item>();
 
-        private Character(Guid id, string name, string gender, string race, string @class, string background, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int hitPoints, int armorClass, int health, int gold, float experience, float maxExperience, int level)
+        private Character(Guid id, Guid playerId, string name, string gender, string race, string @class, string background, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int hitPoints, int armorClass, int health, int gold, float experience, float maxExperience, int level)
         {
             Id = id;
+            PlayerId = playerId;
             Name = name;
             Gender = gender;
             Race = race;
@@ -55,9 +59,9 @@
             Level = level;
         }
         
-        public static Character Create(Guid id, string name, string gender, string race, string @class, string background, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int hitPoints, int armorClass, int health, int gold, float experience, float maxExperience, int level)
+        public static Character Create(Guid id, Guid playerId, string name, string gender, string race, string @class, string background, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int hitPoints, int armorClass, int health, int gold, float experience, float maxExperience, int level)
         {
-            return new Character(id, name, gender, race, @class, background, strength, dexterity, constitution, intelligence, wisdom, charisma, hitPoints, armorClass, health, gold, experience, maxExperience, level);
+            return new Character(id, playerId, name, gender, race, @class, background, strength, dexterity, constitution, intelligence, wisdom, charisma, hitPoints, armorClass, health, gold, experience, maxExperience, level);
         }
     
         public Skill AddSkill(string description, int points)
