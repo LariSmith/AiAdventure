@@ -11,9 +11,9 @@ namespace AiAdventure.Repositories
         public PlayerRepository(AiAdventureContext context) : base(context)
         { }
 
-        public Player GetByEmail(string email)
+        public async Task<Player> GetByEmailAsync(string email)
         {
-            return _dbSet.FirstOrDefault(x => x.Email == email);
+            return await _set.FirstAsync(x => x.Email == email);
         }
     }
 }

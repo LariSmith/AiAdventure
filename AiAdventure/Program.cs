@@ -4,6 +4,7 @@ using AiAdventure.Data;
 using AiAdventure.Interfaces;
 using AiAdventure.Services;
 using AiAdventure.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AiAdventureContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 builder.Services.AddTransient<ICharacterService, CharacterService>();
 builder.Services.AddTransient<IPlayerService, PlayerService>();

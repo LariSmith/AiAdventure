@@ -1,11 +1,13 @@
 ﻿using AiAdventure.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace AiAdventure.Data
 {
-    public class AiAdventureContext : DbContext
+    public class AiAdventureContext : IdentityDbContext<IdentityUser>
     {
-        public AiAdventureContext(DbContextOptions options) : base(options) { }
+        public AiAdventureContext(DbContextOptions<AiAdventureContext> options) : base(options) { }
 
         public DbSet<Player> Players => Set<Player>();
         public DbSet<Character> Characters => Set<Character>();

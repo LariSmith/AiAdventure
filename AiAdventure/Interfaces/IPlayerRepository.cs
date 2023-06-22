@@ -4,6 +4,6 @@ namespace AiAdventure.Interfaces
 {
     public interface IPlayerRepository : IRepositoryBase<Player>
     {
-        Player GetByEmail(string email);
+        Task<Player> GetByEmailAsync(string email);
     }
 }

@@ -15,19 +15,19 @@ namespace AiAdventure.Services
             _passwordHandler = passwordHandler;
         }
 
-        public Player Create(PlayerCreationDto data)
+        public async Task<Player> CreateAsync(PlayerCreationDto data)
         {
             var encryptPassword = _passwordHandler.Encrypt(data.Password);
             var player = Player.Create(Guid.NewGuid(), data.Email, encryptPassword, data.Name);
-            _unitOfWork.Players.Add(player);
+            await _unitOfWork.Players.AddAsync(player);
             _unitOfWork.Commit();
 
             return player;
         }
 
-        public Player? GetByEmail(string email)
+        public async Task<Player>? GetByEmail(string email)
         {
-            var searchPlayer = _unitOfWork.Players.GetByEmail(email);
+            var searchPlayer = await _unitOfWork.Players.GetByEmailAsync(email);
             return searchPlayer;
         }
     }

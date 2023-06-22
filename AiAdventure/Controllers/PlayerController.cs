@@ -18,14 +18,14 @@ namespace AiAdventure.Controllers
 
         [HttpPost]
         [Route("new-player")]
-        public IActionResult CreatePlayer([FromForm] PlayerCreationDto data)
+        public async Task<IActionResult> CreatePlayer([FromForm] PlayerCreationDto data)
         {
             try
             {
                 if (_playerService.GetByEmail(data.Email) != null)
                     return Conflict();
 
-                var player = _playerService.Create(data);
+                var player = await _playerService.CreateAsync(data);
 
                 var dto = new PlayerReturnDto()
                 {

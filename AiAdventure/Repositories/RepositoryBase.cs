@@ -7,58 +7,61 @@ namespace AiAdventure.Repositories
 {
     public class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {
-        protected readonly AiAdventureContext _context;
-        protected readonly DbSet<T> _dbSet;
+        private readonly DbContext _context;
+        protected readonly DbSet<T> _set;
 
-        protected RepositoryBase(AiAdventureContext context)
+        public RepositoryBase(DbContext context)
         {
             _context = context;
-            _dbSet = context.Set<T>();
+            _set = _context.Set<T>();
         }
 
-        public virtual void Add(T entity)
+        public async Task<T> GetByIdAsync(Guid id)
         {
-            _dbSet.Add(entity);
+            return await _set.FindAsync(id);
         }
 
-        public virtual void AddRange(IEnumerable<T> entities)
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
-            _dbSet.AddRange(entities);
+            return await _set.ToListAsync();
         }
 
-        public virtual IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
+        public async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate)
         {
-            return _dbSet.Where(predicate);
+            return await _set.Where(predicate).ToListAsync();
         }
 
-        public virtual IEnumerable<T> GetAll()
+        public async Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate)
         {
-            return _dbSet.ToList();
+            return await _set.SingleOrDefaultAsync(predicate);
         }
 
-        public virtual T GetById(Guid id)
+        public async Task AddAsync(T entity)
         {
-            return _dbSet.Find(id);
+            await _set.AddAsync(entity);
         }
 
-        public virtual void Remove(T entity)
+        public async Task AddRangeAsync(IEnumerable<T> entities)
         {
-            _dbSet.Remove(entity);
+            await _set.AddRangeAsync(entities);
         }
 
-        public virtual void RemoveRange(IEnumerable<T> entities)
+        public async Task UpdateAsync(T entity)
         {
-            _dbSet.RemoveRange(entities);
+            _set.Update(entity);
+            await Task.CompletedTask;
         }
 
-        public virtual T SingleOrDefault(Expression<Func<T, bool>> predicate)
+        public async Task RemoveAsync(T entity)
         {
-            return _dbSet.SingleOrDefault(predicate);
+            _set.Remove(entity);
+            await Task.CompletedTask;
         }
 
-        public virtual void Update(T entity)
+        public async Task RemoveRangeAsync(IEnumerable<T> entities)
         {
-            _context.Entry(entity).State = EntityState.Modified;
+            _set.RemoveRange(entities);
+            await Task.CompletedTask;
         }
     }
 }
