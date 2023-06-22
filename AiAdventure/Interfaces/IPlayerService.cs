@@ -5,7 +5,7 @@ namespace AiAdventure.Interfaces
 {
     public interface IPlayerService
     {
-        Player Create(PlayerDto data);
-        Player GetPlayer(int id);
+        Player Create(PlayerCreationDto data);
+        Player? GetByEmail(string email);
     }
 }

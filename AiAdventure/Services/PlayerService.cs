@@ -7,20 +7,28 @@ namespace AiAdventure.Services
     public class PlayerService : IPlayerService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IPasswordHandler _passwordHandler;
 
-        public PlayerService(IUnitOfWork unitOfWork)
+        public PlayerService(IUnitOfWork unitOfWork, IPasswordHandler passwordHandler)
         {
             _unitOfWork = unitOfWork;
+            _passwordHandler = passwordHandler;
         }
 
-        public Player Create(PlayerDto data)
+        public Player Create(PlayerCreationDto data)
         {
-            throw new NotImplementedException();
+            var encryptPassword = _passwordHandler.Encrypt(data.Password);
+            var player = Player.Create(Guid.NewGuid(), data.Email, encryptPassword, data.Name);
+            _unitOfWork.Players.Add(player);
+            _unitOfWork.Commit();
+
+            return player;
         }
 
-        public Player GetPlayer(int id) 
+        public Player? GetByEmail(string email)
         {
-            throw new NotImplementedException();
+            var searchPlayer = _unitOfWork.Players.GetByEmail(email);
+            return searchPlayer;
         }
     }
 }

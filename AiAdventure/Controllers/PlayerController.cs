@@ -18,40 +18,26 @@ namespace AiAdventure.Controllers
 
         [HttpPost]
         [Route("new-player")]
-        public IActionResult CreatePlayer(PlayerDto data)
+        public IActionResult CreatePlayer([FromForm] PlayerCreationDto data)
         {
             try
             {
+                if (_playerService.GetByEmail(data.Email) != null)
+                    return Conflict();
+
                 var player = _playerService.Create(data);
 
-                if (player == null) 
-                    return NoContent();
+                var dto = new PlayerReturnDto()
+                {
+                    Email = player.Email,
+                    Name = player.Name
+                };
 
-                string playerUri = "/api/Player/" + player.Id;
-                return Created(playerUri, player);
+                return Ok(dto);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpGet]
-        [Route("{id}")]
-        public IActionResult GetPlayer(int id)
-        {
-            try
-            {
-                var player = _playerService.GetPlayer(id);
-
-                if (player == null)
-                    return NotFound();
-
-                return Ok(player);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
             }
         }
     }

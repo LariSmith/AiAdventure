@@ -2,7 +2,7 @@
 
 namespace AiAdventure.DTOs
 {
-    public class PlayerDto
+    public class PlayerCreationDto
     {
         [Required(ErrorMessage = "Enter your email.")]
         [RegularExpression(".+\\@.+\\..+", ErrorMessage = "Please enter a valid email address.")]
