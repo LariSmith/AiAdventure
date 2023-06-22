@@ -5,21 +5,23 @@
         public Guid Id { get; private set; }
         public string Email { get; private set; }
         public string Password { get; private set; }
+        public string Name { get; private set; }
 
         public IReadOnlyCollection<Character> Characters => _characters;
 
         private readonly List<Character> _characters = new List<Character>();
 
-        private Player(Guid id, string email, string password)
+        private Player(Guid id, string email, string password, string name)
         {
             Id = id;
             Email = email;
             Password = password;
+            Name = name;
         }
 
-        public static Player Create(Guid id, string email, string password)
+        public static Player Create(Guid id, string email, string password, string name)
         {
-            return new Player(id, email, password);
+            return new Player(id, email, password, name);
         } 
 
         public Character GenerateCharacter(Guid id, string name, string gender, string race, string @class, string background, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int hitPoints, int armorClass, int health, int gold, float experience, float maxExperience, int level)
