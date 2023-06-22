@@ -1,11 +1,24 @@
 ﻿using AiAdventure.Domain.Entities;
+using AiAdventure.DTOs;
 using AiAdventure.Interfaces;
 
 namespace AiAdventure.Services
 {
     public class PlayerService : IPlayerService
     {
-        public Player Create(string email, string password)
+        private readonly IUnitOfWork _unitOfWork;
+
+        public PlayerService(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+
+        public Player Create(PlayerDto data)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Player GetPlayer(int id) 
         {
             throw new NotImplementedException();
         }
