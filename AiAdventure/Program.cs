@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using AiAdventure.Data;
 using AiAdventure.Interfaces;
 using AiAdventure.Services;
+using AiAdventure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,7 @@ builder.Services.AddDbContext<AiAdventureContext>(options =>
 builder.Services.AddTransient<ICharacterService, CharacterService>();
 builder.Services.AddTransient<IPlayerService, PlayerService>();
 builder.Services.AddTransient<IPasswordHandler, PasswordHandler>();
+builder.Services.AddTransient(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
 
 var app = builder.Build();
 

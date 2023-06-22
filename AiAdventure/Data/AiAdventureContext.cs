@@ -7,6 +7,7 @@ namespace AiAdventure.Data
     {
         public AiAdventureContext(DbContextOptions options) : base(options) { }
 
+        public DbSet<Player> Players => Set<Player>();
         public DbSet<Character> Characters => Set<Character>();
         public DbSet<Creature> Creatures => Set<Creature>();
         public DbSet<Feature> Features => Set<Feature>();
