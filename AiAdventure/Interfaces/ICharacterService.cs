@@ -5,6 +5,10 @@ namespace AiAdventure.Interfaces
 {
     public interface ICharacterService
     {
-        Character Create(JObject character, Player player);
+        Task<Character> CreateCharacter(JObject character, Guid playerId);
+        Character AddSkill(JObject skillsJson, Character character);
+        Character AddProficiency(JObject proficienciesJson, Character character);
+        Character AddFeature(JObject featureJson, Character character);
+        Character AddItem(JObject itemJson, Character character);
     }
 }

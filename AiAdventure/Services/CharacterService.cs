@@ -7,8 +7,14 @@ namespace AiAdventure.Services
 {
     public class CharacterService : ICharacterService
     {
+        private readonly IUnitOfWork _unitOfWork;
 
-        public Character Create(JObject characterJson, Player player)
+        public CharacterService(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+
+        public async Task<Character> CreateCharacter(JObject characterJson, Guid playerId)
         {
             var name = JsonHandle.GetTokenValueString(characterJson, "data.name");
             var race = JsonHandle.GetTokenValueString(characterJson, "data.race");
@@ -29,11 +35,28 @@ namespace AiAdventure.Services
             var health = JsonHandle.GetTokenValueInt(characterJson, "data.health");
             var gold = JsonHandle.GetTokenValueInt(characterJson, "data.gold");
 
+            var player = await _unitOfWork.Players.GetByIdAsync(playerId);
+
             var character = player.GenerateCharacter(Guid.NewGuid(), name, gender, race, @class, background, strength, dexterity, constitution, intelligence, wisdom, charisma, hitpoints, armorClass, health, gold, experience, maxExperience, level);
 
             var skillsObject = (JObject)characterJson["data"]["skills"];
+            character = AddSkill(skillsObject, character);
 
-            foreach (var skill in skillsObject)
+            var featuresObject = (JObject)characterJson["data"]["classFeatures"];
+            character = AddFeature(featuresObject, character);
+
+            var proficienciesObject = (JObject)characterJson["data"]["proficiencies"];
+            character = AddProficiency(proficienciesObject, character);
+
+            var inventoryArray = (JObject)characterJson["data"]["inventory"];
+            character = AddItem(inventoryArray, character);
+
+            return character;
+        }
+
+        public Character AddSkill(JObject skillsJson, Character character)
+        {
+            foreach (var skill in skillsJson)
             {
                 var skillName = skill.Key;
                 var skillValue = skill.Value.Value<int>();
@@ -41,19 +64,12 @@ namespace AiAdventure.Services
                 character.AddSkill(skillName, skillValue);
             }
 
-            var featuresObject = (JObject)characterJson["data"]["classFeatures"];
+            return character;
+        }
 
-            foreach (var feature in featuresObject)
-            {
-                var featureName = feature.Key;
-                var featureDescription = feature.Value.Value<string>();
-
-                character.AddFeature(featureName, featureDescription);
-            }
-
-            var proficienciesObject = (JObject)characterJson["data"]["proficiencies"];
-
-            foreach (var proficiency in proficienciesObject)
+        public Character AddProficiency(JObject proficienciesJson, Character character)
+        {
+            foreach (var proficiency in proficienciesJson)
             {
                 var proficiencyType = proficiency.Key;
                 var proficiencyArray = (JArray)proficiency.Value;
@@ -63,9 +79,25 @@ namespace AiAdventure.Services
                 character.AddProficiency(proficiencyType, proficiencyValues);
             }
 
-            var inventoryArray = (JObject)characterJson["data"]["inventory"];
+            return character;
+        }
 
-            foreach (var item in inventoryArray)
+        public Character AddFeature(JObject featureJson, Character character)
+        {
+            foreach (var feature in featureJson)
+            {
+                var featureName = feature.Key;
+                var featureDescription = feature.Value.Value<string>();
+
+                character.AddFeature(featureName, featureDescription);
+            }
+
+            return character;
+        }
+
+        public Character AddItem(JObject itemJson, Character character)
+        {
+            foreach (var item in itemJson)
             {
                 var itemName = item.Key;
                 var itemQuantity = item.Value.Value<int>();

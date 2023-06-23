@@ -34,6 +34,7 @@ namespace AiAdventure.Controllers
         {
             try
             {
+                var playerId = Guid.Parse(User.FindFirst("sid")?.Value);
                 var api = new OpenAIAPI(_key);
 
                 var chat = await api.Chat.CreateChatCompletionAsync(new OpenAI_API.Chat.ChatRequest()
@@ -51,8 +52,9 @@ namespace AiAdventure.Controllers
                 });
 
                 var response = chat.Choices[0].Message;
-
                 var json = JObject.Parse(response.Content);
+
+                var character = await _characterService.CreateCharacter(json, playerId);
 
                 return Ok(response);
             } 
