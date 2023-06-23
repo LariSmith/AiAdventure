@@ -51,6 +51,12 @@ namespace AiAdventure.Services
             var inventoryArray = (JObject)characterJson["data"]["inventory"];
             character = AddItem(inventoryArray, character);
 
+            using (var unitOfWork = _unitOfWork)
+            {
+                await _unitOfWork.Characters.AddAsync(character);
+                _unitOfWork.Commit();
+            }
+
             return character;
         }
 

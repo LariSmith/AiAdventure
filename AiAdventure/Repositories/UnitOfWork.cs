@@ -10,6 +10,8 @@ namespace AiAdventure.Repositories
 
         public IPlayerRepository Players { get; }
 
+        public ICharacterRepository Characters { get; }
+
         public UnitOfWork(AiAdventureContext context, IPlayerRepository players) 
         {
             _context = context;
