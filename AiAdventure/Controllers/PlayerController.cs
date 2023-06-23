@@ -1,6 +1,5 @@
 ﻿using AiAdventure.DTOs;
 using AiAdventure.Interfaces;
-using AiAdventure.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AiAdventure.Controllers

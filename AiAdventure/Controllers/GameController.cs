@@ -1,16 +1,20 @@
 ﻿using AiAdventure.Domain.Entities;
 using AiAdventure.Interfaces;
 using Azure;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using OpenAI_API;
 using OpenAI_API.Chat;
 using OpenAI_API.Models;
+using System.Data;
 
 namespace AiAdventure.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Player")]
     public class GameController : Controller
     {
         private readonly IConfiguration _configuration;

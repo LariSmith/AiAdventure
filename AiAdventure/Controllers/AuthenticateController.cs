@@ -18,7 +18,7 @@ namespace AiAdventure.Controllers
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login([FromBody] LoginDto data)
+        public async Task<IActionResult> Login([FromForm] LoginDto data)
         {
             try
             {

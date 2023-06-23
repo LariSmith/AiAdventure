@@ -38,7 +38,7 @@ namespace AiAdventure.Services
 
         public JwtSecurityToken GenerateToken(Player player)
         {
-            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Key"]));
+            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
             var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
             var host = _configuration["ApplicationSettings:Host"];
             var expiration = int.Parse(_configuration["JWT:TokenValidity"]);
@@ -55,6 +55,8 @@ namespace AiAdventure.Services
             Thread.CurrentPrincipal = principal;
 
             return new JwtSecurityToken(
+                issuer: host,
+                audience: host,
                 claims: claims,
                 expires: DateTime.Now.AddHours(expiration),
                 signingCredentials: signinCredentials
