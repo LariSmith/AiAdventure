@@ -12,6 +12,14 @@ namespace AiAdventure.Repositories
 
         public ICharacterRepository Characters { get; }
 
+        public IProficiencyRepository Proficiencies { get; }
+
+        public ISkillRepository Skills { get; }
+
+        public IFeatureRepository Features { get; }
+
+        public IInventoryRepository Inventory { get; }
+
         public UnitOfWork(AiAdventureContext context, IPlayerRepository players) 
         {
             _context = context;

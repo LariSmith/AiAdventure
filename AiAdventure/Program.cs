@@ -46,10 +46,17 @@ builder.Services.AddAuthentication(opt =>
 builder.Services.AddTransient<ICharacterService, CharacterService>();
 builder.Services.AddTransient<IPlayerService, PlayerService>();
 builder.Services.AddTransient<IPasswordHandler, PasswordHandler>();
-builder.Services.AddTransient<IPlayerRepository, PlayerRepository>();
 builder.Services.AddTransient<IAuthenticationService, AuthenticationService>();
-builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+
 builder.Services.AddTransient(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
+builder.Services.AddTransient<IPlayerRepository, PlayerRepository>();
+builder.Services.AddTransient<ICharacterRepository, CharacterRepository>();
+builder.Services.AddTransient<ISkillRepository, SkillRepository>();
+builder.Services.AddTransient<IProficiencyRepository, ProficiencyRepository>();
+builder.Services.AddTransient<IFeatureRepository, FeatureRepository>();
+builder.Services.AddTransient<IInventoryRepository, InventoryRepository>();
+
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddSwaggerGen(opt =>
 {
