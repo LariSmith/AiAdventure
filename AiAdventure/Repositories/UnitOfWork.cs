@@ -20,10 +20,17 @@ namespace AiAdventure.Repositories
 
         public IInventoryRepository Inventory { get; }
 
-        public UnitOfWork(AiAdventureContext context, IPlayerRepository players) 
+        public UnitOfWork(AiAdventureContext context, IPlayerRepository players, 
+                          ICharacterRepository characters, IProficiencyRepository proficiencies, 
+                          ISkillRepository skills, IFeatureRepository features, IInventoryRepository inventory) 
         {
             _context = context;
             Players = players ?? throw new ArgumentNullException(nameof(players));
+            Characters = characters ?? throw new ArgumentNullException(nameof(characters));
+            Proficiencies = proficiencies ?? throw new ArgumentNullException(nameof(proficiencies));
+            Skills = skills ?? throw new ArgumentNullException(nameof(skills));
+            Features = features ?? throw new ArgumentNullException(nameof(features));
+            Inventory = inventory ?? throw new ArgumentException(nameof(inventory));
         }
 
         public int Commit()

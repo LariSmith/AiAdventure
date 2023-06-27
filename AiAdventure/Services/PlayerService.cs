@@ -1,6 +1,7 @@
 ﻿using AiAdventure.Domain.Entities;
 using AiAdventure.DTOs;
 using AiAdventure.Interfaces;
+using AiAdventure.Repositories;
 
 namespace AiAdventure.Services
 {
@@ -17,12 +18,15 @@ namespace AiAdventure.Services
 
         public async Task<Player> CreateAsync(PlayerCreationDto data)
         {
-            var encryptPassword = _passwordHandler.Encrypt(data.Password);
-            var player = Player.Create(Guid.NewGuid(), data.Email, encryptPassword, data.Name);
-            await _unitOfWork.Players.AddAsync(player);
-            _unitOfWork.Commit();
+            using (var unitOfWork = _unitOfWork)
+            {
+                var encryptPassword = _passwordHandler.Encrypt(data.Password);
+                var player = Player.Create(Guid.NewGuid(), data.Email, encryptPassword, data.Name);
+                await unitOfWork.Players.AddAsync(player);
+                unitOfWork.Commit();
 
-            return player;
+                return player;
+            }
         }
 
         public async Task<Player>? GetByEmail(string email)
