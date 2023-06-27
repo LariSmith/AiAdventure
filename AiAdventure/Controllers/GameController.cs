@@ -35,7 +35,7 @@ namespace AiAdventure.Controllers
         {
             try
             {
-                var playerId = Guid.Parse(User.FindFirst("sid")?.Value);
+                var playerId = int.Parse(User.FindFirst("sid")?.Value);
                 var api = new OpenAIAPI(_key);
 
                 string expectedResponse1 = @"{

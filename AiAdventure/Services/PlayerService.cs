@@ -21,7 +21,7 @@ namespace AiAdventure.Services
             using (var unitOfWork = _unitOfWork)
             {
                 var encryptPassword = _passwordHandler.Encrypt(data.Password);
-                var player = Player.Create(Guid.NewGuid(), data.Email, encryptPassword, data.Name);
+                var player = Player.Create(data.Email, encryptPassword, data.Name);
                 await unitOfWork.Players.AddAsync(player);
                 unitOfWork.Commit();
 

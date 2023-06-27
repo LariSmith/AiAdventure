@@ -2,8 +2,8 @@
 {
     public class Creature
     {
-        public Guid Id { get; set; }
-        public Guid OriginalLocationId { get; set; }
+        public int Id { get; set; }
+        public int OriginalLocationId { get; set; }
         public string Name { get; set; }
         public string Race { get; set; }
         public int Strength { get; set; }

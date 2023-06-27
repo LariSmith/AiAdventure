@@ -13,7 +13,7 @@ namespace AiAdventure.Repositories
 
         public async Task<Player> GetByEmailAsync(string email)
         {
-            return await _set.FirstAsync(x => x.Email == email);
+            return await _set.FirstOrDefaultAsync(x => x.Email == email);
         }
     }
 }

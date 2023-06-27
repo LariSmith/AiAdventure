@@ -14,7 +14,7 @@ namespace AiAdventure.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Character> CreateCharacter(JObject characterJson, Guid playerId)
+        public async Task<Character> CreateCharacter(JObject characterJson, int playerId)
         {
             var name = JsonHandle.GetTokenValueString(characterJson, "data.name");
             var race = JsonHandle.GetTokenValueString(characterJson, "data.race");
@@ -37,7 +37,7 @@ namespace AiAdventure.Services
 
             var player = await _unitOfWork.Players.GetByIdAsync(playerId);
 
-            var character = player.GenerateCharacter(Guid.NewGuid(), name, gender, race, @class, background, strength, dexterity, constitution, intelligence, wisdom, charisma, hitpoints, armorClass, health, gold, experience, maxExperience, level);
+            var character = player.GenerateCharacter(name, gender, race, @class, background, strength, dexterity, constitution, intelligence, wisdom, charisma, hitpoints, armorClass, health, gold, experience, maxExperience, level);
 
             var skillsObject = (JObject)characterJson["data"]["skills"];
             character = AddSkill(skillsObject, character);

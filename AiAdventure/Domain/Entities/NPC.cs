@@ -2,7 +2,7 @@
 {
     public class NPC
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Race { get; set; }
         public bool IsPartyMember { get; set; }
@@ -17,7 +17,7 @@
         public int Health { get; set; }
         public float Experience { get; set; }
         public int Level { get; set; }
-        public Guid OriginalLocationId { get; set; }
+        public int OriginalLocationId { get; set; }
 
         public Location OriginalLocation { get; set; }
     }

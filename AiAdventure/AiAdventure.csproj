@@ -23,4 +23,8 @@
     <ProjectReference Include="..\OpenAI_API\OpenAI_API.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

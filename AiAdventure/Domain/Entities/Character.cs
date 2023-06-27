@@ -2,8 +2,8 @@
 {
     public class Character
     {
-        public Guid Id { get; private set; }
-        public Guid PlayerId { get; private set; }
+        public int Id { get; private set; }
+        public int PlayerId { get; private set; }
         public string Name { get; private set; }
         public string Gender { get; private set; }
         public string Race { get; private set; }
@@ -23,8 +23,6 @@
         public float MaxExperience { get; private set; }
         public int Level { get; private set; }
 
-        public Player Player { get; private set; }
-
         public IReadOnlyCollection<Skill> Skills => _skillList;
         public IReadOnlyCollection<Proficiency> Proficiencies => _proficienciesList;
         public IReadOnlyCollection<Feature> Features => _featureList;
@@ -35,9 +33,8 @@
         private readonly HashSet<Feature> _featureList = new HashSet<Feature>();
         private readonly HashSet<Item> _itemList = new HashSet<Item>();
 
-        internal Character(Guid id, Guid playerId, string name, string gender, string race, string @class, string background, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int hitPoints, int armorClass, int health, int gold, float experience, float maxExperience, int level)
+        internal Character(int playerId, string name, string gender, string race, string @class, string background, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int hitPoints, int armorClass, int health, int gold, float experience, float maxExperience, int level)
         {
-            Id = id;
             PlayerId = playerId;
             Name = name;
             Gender = gender;
@@ -61,7 +58,7 @@
             
         public Skill AddSkill(string description, int points)
         {
-            var newsSkill = new Skill(Guid.NewGuid(), Id, description, points);
+            var newsSkill = new Skill(Id, description, points);
             _skillList.Add(newsSkill);
 
             return newsSkill;
@@ -69,7 +66,7 @@
 
         public Proficiency AddProficiency(string type, string? list)
         {
-            var newProficiency = new Proficiency(Guid.NewGuid(), Id, type, list);
+            var newProficiency = new Proficiency(Id, type, list);
             _proficienciesList.Add(newProficiency);
 
             return newProficiency;
@@ -77,7 +74,7 @@
 
         public Feature AddFeature(string name, string description)
         {
-            var newFeature = new Feature(Guid.NewGuid(), Id, name, description);
+            var newFeature = new Feature(Id, name, description);
             _featureList.Add(newFeature);
 
             return newFeature;
@@ -85,7 +82,7 @@
 
         public Item AddItem(string name, int quantity)
         {
-            var newItem = new Item(Guid.NewGuid(), Id, name, quantity);
+            var newItem = new Item(Id, name, quantity);
             _itemList.Add(newItem);
 
             return newItem;

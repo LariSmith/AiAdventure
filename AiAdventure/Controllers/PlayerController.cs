@@ -21,7 +21,9 @@ namespace AiAdventure.Controllers
         {
             try
             {
-                if (_playerService.GetByEmail(data.Email) != null)
+                var searchPlayer = _playerService.GetByEmail(data.Email).Result;
+
+                if (searchPlayer != null)
                     return Conflict();
 
                 var player = await _playerService.CreateAsync(data);

@@ -2,10 +2,10 @@
 {
     public class Location
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
-        public Guid? ParentId { get; set; }
-        public Guid TurnId { get; set; }
+        public int? ParentId { get; set; }
+        public int TurnId { get; set; }
 
         public Location Parent { get; set; }
         public Turn Turn { get; set; }
