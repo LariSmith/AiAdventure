@@ -11,10 +11,10 @@ namespace AiAdventure.Services
     public class AuthenticationService : IAuthenticationService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IPasswordHandler _passwordHandler;
+        private readonly IPasswordService _passwordHandler;
         private readonly IConfiguration _configuration;
 
-        public AuthenticationService(IUnitOfWork unitOfWork, IPasswordHandler passwordHandler, IConfiguration configuration)
+        public AuthenticationService(IUnitOfWork unitOfWork, IPasswordService passwordHandler, IConfiguration configuration)
         {
             _unitOfWork = unitOfWork;
             _passwordHandler = passwordHandler;

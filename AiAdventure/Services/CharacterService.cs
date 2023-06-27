@@ -1,5 +1,7 @@
 ﻿using AiAdventure.Domain.Entities;
+using AiAdventure.Domain.Models;
 using AiAdventure.Interfaces;
+using AiAdventure.Utilities;
 using Newtonsoft.Json.Linq;
 using System.Text;
 
@@ -16,40 +18,13 @@ namespace AiAdventure.Services
 
         public async Task<Character> CreateCharacter(JObject characterJson, int playerId)
         {
-            var name = JsonHandle.GetTokenValueString(characterJson, "data.name");
-            var race = JsonHandle.GetTokenValueString(characterJson, "data.race");
-            var gender = JsonHandle.GetTokenValueString(characterJson, "data.gender");
-            var @class = JsonHandle.GetTokenValueString(characterJson, "data.class");
-            var level = JsonHandle.GetTokenValueInt(characterJson, "data.level");
-            var experience = JsonHandle.GetTokenValueFloat(characterJson, "data.experience");
-            var maxExperience = JsonHandle.GetTokenValueFloat(characterJson, "data.maxExperience");
-            var strength = JsonHandle.GetTokenValueInt(characterJson, "data.strength");
-            var dexterity = JsonHandle.GetTokenValueInt(characterJson, "data.dexterity");
-            var constitution = JsonHandle.GetTokenValueInt(characterJson, "data.Constitution");
-            var intelligence = JsonHandle.GetTokenValueInt(characterJson, "data.Intelligence");
-            var wisdom = JsonHandle.GetTokenValueInt(characterJson, "data.Wisdom");
-            var charisma = JsonHandle.GetTokenValueInt(characterJson, "data.Charisma");
-            var background = JsonHandle.GetTokenValueString(characterJson, "data.background");
-            var hitpoints = JsonHandle.GetTokenValueInt(characterJson, "data.hitPoints");
-            var armorClass = JsonHandle.GetTokenValueInt(characterJson, "data.armorClass");
-            var health = JsonHandle.GetTokenValueInt(characterJson, "data.health");
-            var gold = JsonHandle.GetTokenValueInt(characterJson, "data.gold");
-
             var player = await _unitOfWork.Players.GetByIdAsync(playerId);
+            var character = player.GenerateCharacter(JsonParse.ParseCharacterModel(characterJson));
 
-            var character = player.GenerateCharacter(name, gender, race, @class, background, strength, dexterity, constitution, intelligence, wisdom, charisma, hitpoints, armorClass, health, gold, experience, maxExperience, level);
-
-            var skillsObject = (JObject)characterJson["data"]["skills"];
-            character = AddSkill(skillsObject, character);
-
-            var featuresObject = (JObject)characterJson["data"]["classFeatures"];
-            character = AddFeature(featuresObject, character);
-
-            var proficienciesObject = (JObject)characterJson["data"]["proficiencies"];
-            character = AddProficiency(proficienciesObject, character);
-
-            var inventoryArray = (JObject)characterJson["data"]["inventory"];
-            character = AddItem(inventoryArray, character);
+            character = AddSkill((JObject)characterJson["data"]["skills"], character);
+            character = AddFeature((JObject)characterJson["data"]["classFeatures"], character);
+            character = AddProficiency((JObject)characterJson["data"]["proficiencies"], character);
+            character = AddItem((JObject)characterJson["data"]["inventory"], character);
 
             using (var unitOfWork = _unitOfWork)
             {

@@ -1,4 +1,6 @@
-﻿namespace AiAdventure.Domain.Entities
+﻿using AiAdventure.Domain.Models;
+
+namespace AiAdventure.Domain.Entities
 {
     public class Player
     {
@@ -23,9 +25,29 @@
             return new Player(email, password, name);
         } 
 
-        public Character GenerateCharacter(string name, string gender, string race, string @class, string background, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int hitPoints, int armorClass, int health, int gold, float experience, float maxExperience, int level)
+        public Character GenerateCharacter(CharacterModel model)
         {
-            var character = new Character(Id, name, gender, race, @class, background, strength, dexterity, constitution, intelligence, wisdom, charisma, hitPoints, armorClass, health, gold , experience, maxExperience, level);
+            var character = new Character(
+                Id,
+                model.Name,
+                model.Gender,
+                model.Race,
+                model.Class,
+                model.Background,
+                model.Strength,
+                model.Dexterity,
+                model.Constitution,
+                model.Intelligence,
+                model.Wisdom,
+                model.Charisma,
+                model.HitPoints,
+                model.ArmorClass,
+                model.Health,
+                model.Gold,
+                model.Experience,
+                model.MaxExperience,
+                model.Level);
+
             _characters.Add(character);
 
             return character;

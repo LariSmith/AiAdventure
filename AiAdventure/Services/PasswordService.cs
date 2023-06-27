@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AiAdventure.Services
 {
-    public class PasswordHandler : IPasswordHandler
+    public class PasswordService : IPasswordService
     {
         public string Encrypt(string password)
         {

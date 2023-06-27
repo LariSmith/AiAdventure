@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-
 using AiAdventure.Data;
 using AiAdventure.Interfaces;
 using AiAdventure.Services;
@@ -43,9 +42,11 @@ builder.Services.AddAuthentication(opt =>
     };
 });
 
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 builder.Services.AddTransient<ICharacterService, CharacterService>();
 builder.Services.AddTransient<IPlayerService, PlayerService>();
-builder.Services.AddTransient<IPasswordHandler, PasswordHandler>();
+builder.Services.AddTransient<IPasswordService, PasswordService>();
 builder.Services.AddTransient<IAuthenticationService, AuthenticationService>();
 
 builder.Services.AddTransient(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));

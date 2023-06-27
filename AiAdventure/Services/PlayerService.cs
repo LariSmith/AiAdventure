@@ -8,9 +8,9 @@ namespace AiAdventure.Services
     public class PlayerService : IPlayerService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IPasswordHandler _passwordHandler;
+        private readonly IPasswordService _passwordHandler;
 
-        public PlayerService(IUnitOfWork unitOfWork, IPasswordHandler passwordHandler)
+        public PlayerService(IUnitOfWork unitOfWork, IPasswordService passwordHandler)
         {
             _unitOfWork = unitOfWork;
             _passwordHandler = passwordHandler;
