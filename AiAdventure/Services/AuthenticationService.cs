@@ -1,6 +1,7 @@
 ﻿using AiAdventure.Domain.Entities;
 using AiAdventure.DTOs;
 using AiAdventure.Interfaces;
+using AiAdventure.Interfaces.Services;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;

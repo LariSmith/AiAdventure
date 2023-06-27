@@ -1,4 +1,6 @@
-﻿namespace AiAdventure.Interfaces
+﻿using AiAdventure.Interfaces.Repositories;
+
+namespace AiAdventure.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {

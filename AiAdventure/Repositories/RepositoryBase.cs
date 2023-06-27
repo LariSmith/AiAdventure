@@ -1,5 +1,5 @@
 ﻿using AiAdventure.Data;
-using AiAdventure.Interfaces;
+using AiAdventure.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 

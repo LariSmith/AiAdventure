@@ -2,7 +2,7 @@
 using AiAdventure.DTOs;
 using System.IdentityModel.Tokens.Jwt;
 
-namespace AiAdventure.Interfaces
+namespace AiAdventure.Interfaces.Services
 {
     public interface IAuthenticationService
     {

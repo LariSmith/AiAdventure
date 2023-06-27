@@ -1,6 +1,7 @@
 ﻿using AiAdventure.Domain.Entities;
 using AiAdventure.Domain.Models;
 using AiAdventure.Interfaces;
+using AiAdventure.Interfaces.Services;
 using AiAdventure.Utilities;
 using Newtonsoft.Json.Linq;
 using System.Text;

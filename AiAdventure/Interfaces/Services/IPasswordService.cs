@@ -1,4 +1,4 @@
-﻿namespace AiAdventure.Interfaces
+﻿namespace AiAdventure.Interfaces.Services
 {
     public interface IPasswordService
     {

@@ -1,5 +1,5 @@
 ﻿using AiAdventure.Domain.Entities;
-using AiAdventure.Interfaces;
+using AiAdventure.Interfaces.Services;
 using Azure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;

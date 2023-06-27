@@ -1,5 +1,6 @@
 ﻿using AiAdventure.Data;
 using AiAdventure.Interfaces;
+using AiAdventure.Interfaces.Repositories;
 
 namespace AiAdventure.Repositories
 {

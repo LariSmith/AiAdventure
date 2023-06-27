@@ -1,6 +1,6 @@
 ﻿using AiAdventure.Domain.Entities;
 
-namespace AiAdventure.Interfaces
+namespace AiAdventure.Interfaces.Repositories
 {
     public interface ICharacterRepository : IRepositoryBase<Character>
     {

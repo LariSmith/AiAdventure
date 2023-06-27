@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace AiAdventure.Interfaces
+namespace AiAdventure.Interfaces.Repositories
 {
     public interface IRepositoryBase<T> where T : class
     {

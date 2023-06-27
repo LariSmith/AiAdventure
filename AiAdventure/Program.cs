@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using AiAdventure.Interfaces.Services;
+using AiAdventure.Interfaces.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.

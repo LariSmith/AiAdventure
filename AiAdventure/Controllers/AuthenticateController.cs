@@ -1,5 +1,5 @@
 ﻿using AiAdventure.DTOs;
-using AiAdventure.Interfaces;
+using AiAdventure.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
 

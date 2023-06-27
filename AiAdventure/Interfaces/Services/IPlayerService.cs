@@ -1,7 +1,7 @@
 ﻿using AiAdventure.Domain.Entities;
 using AiAdventure.DTOs;
 
-namespace AiAdventure.Interfaces
+namespace AiAdventure.Interfaces.Services
 {
     public interface IPlayerService
     {
