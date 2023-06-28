@@ -15,5 +15,9 @@ namespace AiAdventure.Repositories
         {
             return await _set.FirstOrDefaultAsync(x => x.Email == email);
         }
+
+        public async Task<Player> GetWithCharacters(int id) {
+            return await _set.Where(x => x.Id == id).Include(x => x.Characters).FirstOrDefaultAsync();
+        }
     }
 }

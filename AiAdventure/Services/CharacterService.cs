@@ -36,6 +36,16 @@ namespace AiAdventure.Services
             return character;
         }
 
+        public async Task<Character> GetCharacter(int characterId)
+        {
+            return await _unitOfWork.Characters.GetByIdAsync(characterId);
+        }
+
+        public async Task<IEnumerable<Character>> GetAllCharacters(int playerId)
+        {
+            return await _unitOfWork.Characters.GetAll(playerId);
+        }
+
         public Character AddSkill(JObject skillsJson, Character character)
         {
             foreach (var skill in skillsJson)
