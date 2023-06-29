@@ -26,7 +26,7 @@
         public IReadOnlyCollection<Skill> Skills => _skillList;
         public IReadOnlyCollection<Proficiency> Proficiencies => _proficienciesList;
         public IReadOnlyCollection<Feature> Features => _featureList;
-        public IReadOnlyCollection<Item> Inventory => _itemList;
+        public IReadOnlyCollection<Item> Items => _itemList;
 
         private readonly HashSet<Skill> _skillList = new HashSet<Skill>();
         private readonly HashSet<Proficiency> _proficienciesList = new HashSet<Proficiency>();

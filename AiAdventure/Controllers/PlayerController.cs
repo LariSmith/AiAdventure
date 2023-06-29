@@ -41,5 +41,24 @@ namespace AiAdventure.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetInfoPlayer(int id)
+        {
+            try
+            {
+                var searchPlayer = _playerService.GetPlayerInfo(id).Result;
+
+                if (searchPlayer == null)
+                    return NoContent();
+
+                return Ok(searchPlayer);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

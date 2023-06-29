@@ -5,7 +5,8 @@ namespace AiAdventure.Interfaces.Services
 {
     public interface IPlayerService
     {
-        Task<Player> CreateAsync(PlayerCreationDto data);
-        Task<Player>? GetByEmail(string email);
+        Task<PlayerDto> CreateAsync(PlayerCreationDto data);
+        Task<PlayerDto>? GetByEmail(string email);
+        Task<PlayerDto> GetPlayerInfo(int id);
     }
 }

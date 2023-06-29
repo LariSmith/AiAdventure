@@ -9,6 +9,8 @@ using System.Text;
 using Microsoft.OpenApi.Models;
 using AiAdventure.Interfaces.Services;
 using AiAdventure.Interfaces.Repositories;
+using AutoMapper;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.

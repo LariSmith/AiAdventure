@@ -1,5 +1,6 @@
 ﻿using AiAdventure.Domain.Entities;
 using AiAdventure.Domain.Models;
+using AiAdventure.DTOs;
 using AutoMapper;
 
 namespace AiAdventure.Mappers
@@ -10,6 +11,8 @@ namespace AiAdventure.Mappers
         {
             CreateMap<Character, CharacterModel>();
             CreateMap<CharacterModel, Character>();
+            CreateMap<Character, CharacterDto>();
+            CreateMap<CharacterModel, CharacterDto>();
         }
     }
 }
