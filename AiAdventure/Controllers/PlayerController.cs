@@ -19,11 +19,14 @@ namespace AiAdventure.Controllers
 
         [HttpPost]
         [Route("new-player")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PlayerReturnDto))]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
         public async Task<IActionResult> CreatePlayer([FromForm] PlayerCreationDto data)
         {
             try
             {
-                var searchPlayer = _playerService.GetByEmail(data.Email).Result;
+                var searchPlayer = await _playerService.GetByEmail(data.Email);
 
                 if (searchPlayer != null)
                     return Conflict();
@@ -47,6 +50,9 @@ namespace AiAdventure.Controllers
         [HttpGet]
         [Route("{id}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Player")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PlayerDto))]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
         public async Task<IActionResult> GetInfoPlayer(int id)
         {
             try
