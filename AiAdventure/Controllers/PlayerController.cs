@@ -1,5 +1,7 @@
 ﻿using AiAdventure.DTOs;
 using AiAdventure.Interfaces.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AiAdventure.Controllers
@@ -44,11 +46,12 @@ namespace AiAdventure.Controllers
 
         [HttpGet]
         [Route("{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Player")]
         public async Task<IActionResult> GetInfoPlayer(int id)
         {
             try
             {
-                var searchPlayer = _playerService.GetPlayerInfo(id).Result;
+                var searchPlayer = await _playerService.GetPlayerInfo(id);
 
                 if (searchPlayer == null)
                     return NoContent();
