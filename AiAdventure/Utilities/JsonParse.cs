@@ -1,4 +1,5 @@
 ﻿using AiAdventure.Domain.Models;
+using AiAdventure.DTOs;
 using Newtonsoft.Json.Linq;
 
 namespace AiAdventure.Utilities
@@ -30,6 +31,20 @@ namespace AiAdventure.Utilities
             };
 
             return characterModel;
+        }
+
+        public static TurnModel ParseTurnModel(JObject turnJson)
+        {
+            var turnModel = new TurnModel
+            {
+                Number = JsonHandler.GetTokenValue<int>(turnJson, "data.number"),
+                CurrentDay = JsonHandler.GetTokenValue<int>(turnJson, "data.currentDay"),
+                PeriodDay = JsonHandler.GetTokenValue<string>(turnJson, "data.periodDay"),
+                Scene = JsonHandler.GetTokenValue<string>(turnJson, "data.scene"),
+                Weather = JsonHandler.GetTokenValue<string>(turnJson, "data.weather")
+            };
+
+            return turnModel;
         }
     }
 }
