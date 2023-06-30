@@ -27,11 +27,13 @@
         public IReadOnlyCollection<Proficiency> Proficiencies => _proficienciesList;
         public IReadOnlyCollection<Feature> Features => _featureList;
         public IReadOnlyCollection<Item> Items => _itemList;
+        public IReadOnlyCollection<Turn> Turns => _turnList;
 
         private readonly HashSet<Skill> _skillList = new HashSet<Skill>();
         private readonly HashSet<Proficiency> _proficienciesList = new HashSet<Proficiency>();
         private readonly HashSet<Feature> _featureList = new HashSet<Feature>();
         private readonly HashSet<Item> _itemList = new HashSet<Item>();
+        private readonly HashSet<Turn> _turnList = new HashSet<Turn>();
 
         internal Character(int playerId, string name, string gender, string race, string @class, string background, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int hitPoints, int armorClass, int health, int gold, float experience, float maxExperience, int level)
         {
@@ -86,6 +88,13 @@
             _itemList.Add(newItem);
 
             return newItem;
+        }
+
+        public Turn AddTurn(int number, string weather, string scene, int currentDay, string periodDay)
+        {
+            var turn = new Turn(Id, number, weather, scene, currentDay, periodDay);
+            _turnList.Add(turn);
+            return turn;
         }
 
         public void UpdateStatus(int strength, int dexteriry, int constitution, int intelligence, int wisdom, int charisma, int hitPoints, int armorClass, int health)

@@ -2,21 +2,35 @@
 {
     public class Creature
     {
-        public int Id { get; set; }
-        public int OriginalLocationId { get; set; }
-        public string Name { get; set; }
-        public string Race { get; set; }
-        public int Strength { get; set; }
-        public int Dexterity { get; set; }
-        public int Constitution { get; set; }
-        public int Intelligence { get; set; }
-        public int Wisdom { get; set; }
-        public int Charisma { get; set; }
-        public int HitPoints { get; set; }
-        public int ArmorClass { get; set; }
-        public int Health { get; set; }
-        public int Level { get; set; }
+        public int Id { get; private set; }
+        public int OriginalLocationId { get; private set; }
+        public string Name { get; private set; }
+        public string Race { get; private set; }
+        public int Strength { get; private set; }
+        public int Dexterity { get; private set; }
+        public int Constitution { get; private set; }
+        public int Intelligence { get; private set; }
+        public int Wisdom { get; private set; }
+        public int Charisma { get; private set; }
+        public int HitPoints { get; private set; }
+        public int ArmorClass { get; private set; }
+        public int Health { get; private set; }
+        public int Level { get; private set; }
 
-        public Location OriginalLocation { get; set; }
+        internal Creature(int originalLocationId, string name, string race, int strength, int dexterity, int constitution, int intelligence, int wisdom, int hitpoints, int armorclass, int health, int level)
+        {
+            OriginalLocationId = originalLocationId;
+            Name = name;
+            Race = race;
+            Strength = strength;
+            Dexterity = dexterity;
+            Constitution = constitution;
+            Intelligence = intelligence;
+            Wisdom = wisdom;
+            HitPoints = hitpoints;
+            ArmorClass = armorclass;
+            Health = health;
+            Level = level;
+        }
     }
 }
