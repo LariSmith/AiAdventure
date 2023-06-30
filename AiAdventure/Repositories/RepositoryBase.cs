@@ -7,12 +7,11 @@ namespace AiAdventure.Repositories
 {
     public class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {
-        private readonly DbContext _context;
         protected readonly DbSet<T> _set;
 
         public RepositoryBase(DbContext context)
         {
-            _context = context;
+            var _context = context;
             _set = _context.Set<T>();
         }
 
@@ -31,7 +30,7 @@ namespace AiAdventure.Repositories
             return await _set.Where(predicate).ToListAsync();
         }
 
-        public async Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate)
+        public async Task<T?> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate)
         {
             return await _set.SingleOrDefaultAsync(predicate);
         }
@@ -62,6 +61,26 @@ namespace AiAdventure.Repositories
         {
             _set.RemoveRange(entities);
             await Task.CompletedTask;
+        }
+
+        public T GetById(int id)
+        {
+            return _set.Find(id);
+        }
+
+        public IEnumerable<T> GetAll()
+        {
+            return _set.ToList();
+        }
+
+        public IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
+        {
+            return _set.Where(predicate).ToList();
+        }
+
+        public T? SingleOrDefault(Expression<Func<T, bool>> predicate)
+        {
+            return _set.SingleOrDefault(predicate);
         }
     }
 }
