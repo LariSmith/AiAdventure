@@ -113,6 +113,29 @@
         {
             Level++;
             IncreaseExperience(value);
+            UpdateMaxExperience();
+        }
+
+        public void UpdateMaxExperience()
+        {
+            MaxExperience += 100 * Level;
+        }
+
+        public void IncreaseGold(int value)
+        {
+            Gold += value;
+        }
+
+        public void DecreaseGold(int value)
+        {
+            var gold = Gold;
+
+            if (gold - value < 0)
+            {
+                throw new ArgumentException("You don't have enough gold.");
+            }
+
+            Gold -= value;
         }
 
     }
