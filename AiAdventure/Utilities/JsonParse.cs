@@ -46,5 +46,16 @@ namespace AiAdventure.Utilities
 
             return turnModel;
         }
+
+        public static GenericModel ParseGenericModel(JObject genericJson, string nameType)
+        {
+            var genericModel = new GenericModel
+            {
+                Name = JsonHandler.GetTokenValue<string>(genericJson, $"data.{nameType}.name"),
+                Description = JsonHandler.GetTokenValue<string>(genericJson, $"data.{nameType}.description")
+            };
+
+            return genericModel;
+        }
     }
 }
