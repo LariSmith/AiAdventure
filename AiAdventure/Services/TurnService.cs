@@ -10,15 +10,9 @@ namespace AiAdventure.Services
         public void CreateTurn(JObject turnJson, Character character)
         {
             var model = JsonParse.ParseTurnModel(turnJson);
-            
-            character.AddTurn
-                       (
-                           model.Number,
-                           model.Weather,
-                           model.Scene,
-                           model.CurrentDay,
-                           model.PeriodDay
-                       );
+            var commands = String.Join(",", model.Commands);
+
+            character.AddTurn(model.Number, model.Weather, model.Scene, model.CurrentDay, model.PeriodDay, commands);
         }
 
     }

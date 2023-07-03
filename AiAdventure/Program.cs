@@ -52,6 +52,9 @@ builder.Services.AddTransient<ICharacterService, CharacterService>();
 builder.Services.AddTransient<IPlayerService, PlayerService>();
 builder.Services.AddTransient<IPasswordService, PasswordService>();
 builder.Services.AddTransient<IAuthenticationService, AuthenticationService>();
+builder.Services.AddTransient<IChatService, ChatService>();
+builder.Services.AddTransient<IGameService, GameService>();
+builder.Services.AddTransient<ITurnService, TurnService>();
 
 builder.Services.AddTransient(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
 builder.Services.AddTransient<IPlayerRepository, PlayerRepository>();

@@ -1,4 +1,5 @@
-﻿using AiAdventure.Domain.Models;
+﻿using AiAdventure.Domain.Entities;
+using AiAdventure.Domain.Models;
 using AiAdventure.DTOs;
 using Newtonsoft.Json.Linq;
 
@@ -37,12 +38,22 @@ namespace AiAdventure.Utilities
         {
             var turnModel = new TurnModel
             {
-                Number = JsonHandler.GetTokenValue<int>(turnJson, "data.number"),
-                CurrentDay = JsonHandler.GetTokenValue<int>(turnJson, "data.currentDay"),
-                PeriodDay = JsonHandler.GetTokenValue<string>(turnJson, "data.periodDay"),
-                Scene = JsonHandler.GetTokenValue<string>(turnJson, "data.scene"),
+                Number = JsonHandler.GetTokenValue<int>(turnJson, "data.turn_number"),
+                CurrentDay = JsonHandler.GetTokenValue<int>(turnJson, "data.day_number"),
+                PeriodDay = JsonHandler.GetTokenValue<string>(turnJson, "data.time_period"),
+                Scene = JsonHandler.GetTokenValue<string>(turnJson, "data.game_scene_description"),
                 Weather = JsonHandler.GetTokenValue<string>(turnJson, "data.weather")
             };
+
+            var commands = turnJson["data"]["commands"];
+            turnModel.Commands = new List<string>();
+
+            foreach (var command in commands)
+            {
+                var commandValue = command.Value<string>();
+
+                turnModel.Commands.Add(commandValue);
+            }
 
             return turnModel;
         }
