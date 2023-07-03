@@ -1,7 +1,9 @@
-﻿using AiAdventure.Domain.Entities;
+﻿using AiAdventure.Data.Configuration;
+using AiAdventure.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 
 namespace AiAdventure.Data
 {
@@ -21,5 +23,11 @@ namespace AiAdventure.Data
         public DbSet<Skill> Skills => Set<Skill>();
         public DbSet<Treasure> treasures => Set<Treasure>();
         public DbSet<Turn> turns => Set<Turn>();
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.ApplyConfiguration(new QuestConfiguration());
+            base.OnModelCreating(builder);
+        }
     }
 }

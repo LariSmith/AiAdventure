@@ -90,9 +90,9 @@
             return newItem;
         }
 
-        public Turn AddTurn(int number, string weather, string scene, int currentDay, string periodDay)
+        public Turn AddTurn(int number, string weather, string scene, int currentDay, string periodDay, string commands)
         {
-            var turn = new Turn(Id, number, weather, scene, currentDay, periodDay);
+            var turn = new Turn(Id, number, weather, scene, currentDay, periodDay, commands);
             _turnList.Add(turn);
             return turn;
         }

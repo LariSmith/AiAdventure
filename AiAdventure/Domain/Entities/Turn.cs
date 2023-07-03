@@ -9,12 +9,13 @@
         public string Scene { get; private set; }
         public int CurrentDay { get; private set; }
         public string PeriodDay { get; private set; }
+        public string Commands { get; private set; }
 
         public IReadOnlyCollection<Location> Locations => _locations;
 
         private HashSet<Location> _locations = new HashSet<Location>();
 
-        internal Turn(int characterId, int number, string weather, string scene, int currentDay, string periodDay)
+        internal Turn(int characterId, int number, string weather, string scene, int currentDay, string periodDay, string commands)
         {
             CharacterId = characterId;
             Number = number;
@@ -22,6 +23,7 @@
             Scene = scene;
             CurrentDay = currentDay;
             PeriodDay = periodDay;
+            Commands = commands;
         }
 
         public Location AddLocation(string name, int turnId, int? parentId)

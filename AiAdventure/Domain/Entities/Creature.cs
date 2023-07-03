@@ -17,7 +17,7 @@
         public int Health { get; private set; }
         public int Level { get; private set; }
 
-        internal Creature(int originalLocationId, string name, string race, int strength, int dexterity, int constitution, int intelligence, int wisdom, int hitpoints, int armorclass, int health, int level)
+        internal Creature(int originalLocationId, string name, string race, int strength, int dexterity, int constitution, int intelligence, int wisdom, int hitPoints, int armorClass, int health, int level)
         {
             OriginalLocationId = originalLocationId;
             Name = name;
@@ -27,8 +27,8 @@
             Constitution = constitution;
             Intelligence = intelligence;
             Wisdom = wisdom;
-            HitPoints = hitpoints;
-            ArmorClass = armorclass;
+            HitPoints = hitPoints;
+            ArmorClass = armorClass;
             Health = health;
             Level = level;
         }
