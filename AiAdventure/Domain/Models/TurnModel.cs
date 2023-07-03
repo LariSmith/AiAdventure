@@ -7,5 +7,6 @@
         public string Scene { get; set; }
         public int CurrentDay { get; set; }
         public string PeriodDay { get; set; }
+        public List<string> Commands { get; set; }
     }
 }

@@ -2,10 +2,11 @@
 {
     public class TurnDto
     {
-        public int Number { get; private set; }
-        public string Weather { get; private set; }
-        public string Scene { get; private set; }
-        public int CurrentDay { get; private set; }
-        public string PeriodDay { get; private set; }
+        public int Number { get; set; }
+        public string Weather { get; set; }
+        public string Scene { get; set; }
+        public int CurrentDay { get; set; }
+        public string PeriodDay { get; set; }
+        public string Commands { get; set; }
     }
 }
