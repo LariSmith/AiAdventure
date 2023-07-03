@@ -8,9 +8,9 @@ namespace AiAdventure.Interfaces.Services
         Character CreateCharacter(JObject character, int playerId);
         Task<Character> GetCharacter(int characterId);
         Task<IEnumerable<Character>> GetAllCharacters(int playerId);
-        void AddSkill(JToken skillsJson, Character character);
-        void AddProficiency(JToken proficienciesJson, Character character);
-        void AddFeature(JToken featureJson, Character character);
-        void AddItem(JToken itemJson, Character character);
+        void AddSkill(JObject skillsJson, Character character);
+        void AddProficiency(JObject proficienciesJson, Character character);
+        void AddFeature(JObject featureJson, Character character);
+        void AddItem(JObject itemJson, Character character);
     }
 }
