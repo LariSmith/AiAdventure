@@ -24,10 +24,10 @@ namespace AiAdventure.Services
             _mapper = mapper;
         }
 
-        public async Task<CharacterDto> CreateNewGame(int playerId)
+        public async Task<CharacterDto> CreateNewGame(int playerId, bool testOnly = false)
         {
-            var characterJson = await _chatService.GenerateCharacterJson();
-            var turnJson = await _chatService.GenerateTurnJson(characterJson.ToString());
+            var characterJson = await _chatService.GenerateCharacterJson(testOnly);
+            var turnJson = await _chatService.GenerateTurnJson(characterJson.ToString(), testOnly);
 
             var character = _characterService.CreateCharacter(characterJson, playerId);
             _turnService.CreateTurn(turnJson, character);

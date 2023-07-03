@@ -4,6 +4,6 @@ namespace AiAdventure.Interfaces.Services
 {
     public interface IGameService
     {
-        Task<CharacterDto> CreateNewGame(int playerId);
+        Task<CharacterDto> CreateNewGame(int playerId, bool testOnly = false);
     }
 }

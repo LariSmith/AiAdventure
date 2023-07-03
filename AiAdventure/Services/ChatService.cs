@@ -17,7 +17,7 @@ namespace AiAdventure.Services
             _key = _configuration.GetSection("OpenAi")["Key"];
         }
 
-        public async Task<JObject> GenerateCharacterJson()
+        public async Task<JObject> GenerateCharacterJson(bool testOnly = false)
         {
             var api = new OpenAIAPI(_key);
 
@@ -122,6 +122,9 @@ namespace AiAdventure.Services
                                                 }
                                             }";
 
+            if (testOnly)
+                return JObject.Parse(expectedResponseCharacter1);
+
             var chatCharacter = await api.Chat.CreateChatCompletionAsync(new ChatRequest()
             {
                 Model = Model.ChatGPTTurbo,
@@ -144,7 +147,7 @@ namespace AiAdventure.Services
             return characterJson;
         }
 
-        public async Task<JObject> GenerateTurnJson(string character)
+        public async Task<JObject> GenerateTurnJson(string character, bool testOnly = false)
         {
             var api = new OpenAIAPI(_key);
 
@@ -207,6 +210,9 @@ namespace AiAdventure.Services
                                                 ""commands"": [""Talk to Captain Marcus"", ""Visit Lena's Alchemy Shop"", ""Check inventory"", ""Continue exploring""]
                                               }
                                             }";
+
+            if (testOnly)
+                return JObject.Parse(expectedResponseTurn1);
 
             var chatFirstTurn = await api.Chat.CreateChatCompletionAsync(new ChatRequest()
             {

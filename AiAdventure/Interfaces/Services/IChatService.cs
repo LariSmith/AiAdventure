@@ -4,7 +4,7 @@ namespace AiAdventure.Interfaces.Services
 {
     public interface IChatService
     {
-        Task<JObject> GenerateCharacterJson();
-        Task<JObject> GenerateTurnJson(string character);
+        Task<JObject> GenerateCharacterJson(bool testOnly = false);
+        Task<JObject> GenerateTurnJson(string character, bool testOnly = false);
     }
 }

@@ -19,12 +19,12 @@ namespace AiAdventure.Controllers
 
         [HttpPost]
         [Route("new-game")]
-        public async Task<IActionResult> StartGame()
+        public async Task<IActionResult> StartGame([FromForm]bool testOnly = false)
         {
             try
             {
                 var playerId = int.Parse(User.FindFirst("sid")?.Value);
-                var model = _gameService.CreateNewGame(playerId);
+                var model = await _gameService.CreateNewGame(playerId, testOnly);
                 
                 return Ok(model);
             } 
