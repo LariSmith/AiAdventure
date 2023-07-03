@@ -27,5 +27,6 @@ namespace AiAdventure.DTOs
         public ICollection<ItemDto> Items { get; set; }
         public ICollection<FeatureDto> Features { get; set; }
         public ICollection<ProficiencyDto> Proficiencies { get; set; }
+        public ICollection<TurnDto> Turns { get; set; }
     }
 }
