@@ -144,7 +144,7 @@ namespace AiAdventure.Services
             return characterJson;
         }
 
-        public async Task<JObject> GenerateTurn(string character)
+        public async Task<JObject> GenerateTurnJson(string character)
         {
             var api = new OpenAIAPI(_key);
 
@@ -165,21 +165,48 @@ namespace AiAdventure.Services
                                               }
                                             }";
             string expectedResponseTurn2 = @"{
-                                                ""status"": ""success"",
-                                                ""data"": {
-                                                ""turn_number"": 1,
+                                              ""status"": ""success"",
+                                              ""data"": {
+                                                ""turn_number"": 12,
                                                 ""time_period"": ""Morning"",
-                                                ""day_number"": 1,
-                                                ""weather"": ""Clear"",
-                                                ""location"": ""The Village of Oakmere"",
-                                                ""gold"": 10,
-                                                ""quests"": [],
-                                                ""npcs"": [],
-                                                ""creatures"": [],
-                                                ""game_scene_description"": ""You stand in the peaceful village of Oakmere. The quaint cottages and blooming gardens create a serene atmosphere. The soft rays of the morning sun filter through the leaves of ancient oak trees."",
-                                                ""commands"": [""Explore the village"", ""Talk to villagers"", ""Visit the local tavern"", ""Check your inventory""]
-                                                }
-                                                }";
+                                                ""day_number"": 3,
+                                                ""weather"": ""Sunny"",
+                                                ""location"": ""The City of Eldoria"",
+                                                ""gold"": 150,
+                                                ""quests"": [
+                                                  {
+                                                    ""name"": ""The Lost Artifact"",
+                                                    ""description"": ""Retrieve the ancient artifact from the ruins of the Forbidden Temple.""
+                                                  },
+                                                  {
+                                                    ""name"": ""The Missing Heir"",
+                                                    ""description"": ""Find and rescue the missing heir of the noble family.""
+                                                  }
+                                                ],
+                                                ""npcs"": [
+                                                  {
+                                                    ""name"": ""Captain Marcus"",
+                                                    ""description"": ""A seasoned captain of the city guard. He has an important task for you.""
+                                                  },
+                                                  {
+                                                    ""name"": ""Lena the Alchemist"",
+                                                    ""description"": ""A knowledgeable alchemist who sells potions and magical ingredients.""
+                                                  }
+                                                ],
+                                                ""creatures"": [
+                                                  {
+                                                    ""name"": ""Goblin"",
+                                                    ""description"": ""Small, green-skinned humanoid creatures known for their mischief and thievery.""
+                                                  },
+                                                  {
+                                                    ""name"": ""Dire Wolf"",
+                                                    ""description"": ""A large and aggressive wolf with enhanced strength and size.""
+                                                  }
+                                                ],
+                                                ""game_scene_description"": ""You find yourself in the bustling city of Eldoria. The streets are filled with merchants, adventurers, and city guards going about their daily routines. The sun shines brightly overhead, casting a warm glow on the cobblestone streets."",
+                                                ""commands"": [""Talk to Captain Marcus"", ""Visit Lena's Alchemy Shop"", ""Check inventory"", ""Continue exploring""]
+                                              }
+                                            }";
 
             var chatFirstTurn = await api.Chat.CreateChatCompletionAsync(new ChatRequest()
             {
