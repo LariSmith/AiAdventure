@@ -21,5 +21,6 @@
         public float Experience { get; set; }
         public float MaxExperience { get; set; }
         public int Level { get; set; }
+        public string Json { get; set; }
     }
 }

@@ -3,7 +3,6 @@ using AiAdventure.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection.Emit;
 
 namespace AiAdventure.Data
 {
@@ -23,6 +22,7 @@ namespace AiAdventure.Data
         public DbSet<Skill> Skills => Set<Skill>();
         public DbSet<Treasure> treasures => Set<Treasure>();
         public DbSet<Turn> turns => Set<Turn>();
+        public DbSet<GameLog> gameLogs => Set<GameLog>();
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

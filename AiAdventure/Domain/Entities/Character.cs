@@ -22,20 +22,23 @@
         public float Experience { get; private set; }
         public float MaxExperience { get; private set; }
         public int Level { get; private set; }
+        public string Json { get; private set; }
 
         public IReadOnlyCollection<Skill> Skills => _skillList;
         public IReadOnlyCollection<Proficiency> Proficiencies => _proficienciesList;
         public IReadOnlyCollection<Feature> Features => _featureList;
         public IReadOnlyCollection<Item> Items => _itemList;
         public IReadOnlyCollection<Turn> Turns => _turnList;
+        public IReadOnlyCollection<GameLog> GameLogs => _gameLogs;
 
         private readonly HashSet<Skill> _skillList = new HashSet<Skill>();
         private readonly HashSet<Proficiency> _proficienciesList = new HashSet<Proficiency>();
         private readonly HashSet<Feature> _featureList = new HashSet<Feature>();
         private readonly HashSet<Item> _itemList = new HashSet<Item>();
         private readonly HashSet<Turn> _turnList = new HashSet<Turn>();
+        private readonly HashSet<GameLog> _gameLogs = new HashSet<GameLog>();
 
-        internal Character(int playerId, string name, string gender, string race, string @class, string background, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int hitPoints, int armorClass, int health, int gold, float experience, float maxExperience, int level)
+        internal Character(int playerId, string name, string gender, string race, string @class, string background, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int hitPoints, int armorClass, int health, int gold, float experience, float maxExperience, int level, string json)
         {
             PlayerId = playerId;
             Name = name;
@@ -56,6 +59,7 @@
             Experience = experience;
             MaxExperience = maxExperience;
             Level = level;
+            Json = json;
         }
             
         public Skill AddSkill(string description, int points)
@@ -90,11 +94,18 @@
             return newItem;
         }
 
-        public Turn AddTurn(int number, string weather, string scene, int currentDay, string periodDay, string commands)
+        public Turn AddTurn(int number, string weather, string scene, int currentDay, string periodDay, string commands, string json)
         {
-            var turn = new Turn(Id, number, weather, scene, currentDay, periodDay, commands);
+            var turn = new Turn(Id, number, weather, scene, currentDay, periodDay, commands, json);
             _turnList.Add(turn);
             return turn;
+        }
+
+        public GameLog AddLog(string action)
+        {
+            var gameLog = new GameLog(action, Id);
+            _gameLogs.Add(gameLog);
+            return gameLog;
         }
 
         public void UpdateStatus(int strength, int dexteriry, int constitution, int intelligence, int wisdom, int charisma, int hitPoints, int armorClass, int health)

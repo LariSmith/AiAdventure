@@ -46,7 +46,8 @@ namespace AiAdventure.Domain.Entities
                 model.Gold,
                 model.Experience,
                 model.MaxExperience,
-                model.Level);
+                model.Level,
+                model.Json);
 
             _characters.Add(character);
 
