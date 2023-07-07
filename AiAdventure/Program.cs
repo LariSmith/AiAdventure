@@ -55,6 +55,7 @@ builder.Services.AddTransient<IAuthenticationService, AuthenticationService>();
 builder.Services.AddTransient<IChatService, ChatService>();
 builder.Services.AddTransient<IGameService, GameService>();
 builder.Services.AddTransient<ITurnService, TurnService>();
+builder.Services.AddTransient<IGameLogService, GameLogService>();
 
 builder.Services.AddTransient(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
 builder.Services.AddTransient<IPlayerRepository, PlayerRepository>();
@@ -63,6 +64,7 @@ builder.Services.AddTransient<ISkillRepository, SkillRepository>();
 builder.Services.AddTransient<IProficiencyRepository, ProficiencyRepository>();
 builder.Services.AddTransient<IFeatureRepository, FeatureRepository>();
 builder.Services.AddTransient<IInventoryRepository, InventoryRepository>();
+builder.Services.AddTransient<IGameLogRepository, GameLogRepository>();
 
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
