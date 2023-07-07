@@ -6,5 +6,6 @@ namespace AiAdventure.Interfaces.Services
     {
         Task<JObject> GenerateCharacterJson(bool testOnly = false);
         Task<JObject> GenerateTurnJson(string character, bool testOnly = false);
+        Task<JObject> GenerateNextTurnJson(string characterJson, string lastTurnJson, string gameLog, string command, bool testOnly = false);
     }
 }

@@ -20,7 +20,10 @@ namespace AiAdventure.Services
         public Character CreateCharacter(JObject characterJson, int playerId)
         {
             var player = _unitOfWork.Players.GetById(playerId);
-            var character = player.GenerateCharacter(JsonParse.ParseCharacterModel(characterJson));
+            var model = JsonParse.ParseCharacterModel(characterJson);
+            model.Json = characterJson.ToString();
+
+            var character = player.GenerateCharacter(model);
 
             AddSkill((JObject)characterJson["data"]["skills"], character);
             AddFeature((JObject)characterJson["data"]["classFeatures"], character);

@@ -20,6 +20,8 @@ namespace AiAdventure.Repositories
 
         public IInventoryRepository Inventory { get; }
 
+        public IGameLogRepository GameLog { get; }
+
         public UnitOfWork(AiAdventureContext context, IPlayerRepository players, 
                           ICharacterRepository characters, IProficiencyRepository proficiencies, 
                           ISkillRepository skills, IFeatureRepository features, IInventoryRepository inventory) 

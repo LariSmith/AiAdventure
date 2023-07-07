@@ -10,6 +10,7 @@ namespace AiAdventure.Interfaces
         IFeatureRepository Features { get; }
         IInventoryRepository Inventory { get; }
         IProficiencyRepository Proficiencies { get; }
+        IGameLogRepository GameLog { get; }
         int Commit();
     }
 }

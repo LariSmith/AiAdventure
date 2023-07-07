@@ -5,5 +5,6 @@ namespace AiAdventure.Interfaces.Repositories
     public interface ICharacterRepository : IRepositoryBase<Character>
     {
         Task<IEnumerable<Character>> GetAll(int playerId);
+        Task<Character> GetCharacterJoinTurnJoinLog(int characterId);
     }
 }

@@ -27,9 +27,9 @@ namespace AiAdventure.Controllers
         {
             try
             {
-                var playerId = int.Parse(User.FindFirst("sid")?.Value);
+                int playerId;
 
-                if (playerId == null)
+                if (!int.TryParse(User.FindFirst("sid")?.Value, out playerId))
                     return Unauthorized();
 
                 var model = await _gameService.CreateNewGame(playerId, testOnly);
@@ -39,6 +39,30 @@ namespace AiAdventure.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("next-turn")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CharacterDto))]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
+        public async Task<ActionResult> NextTurn(int characterId, string command, bool testOnly = false)
+        {
+            try
+            {
+                int playerId;
+
+                if (!int.TryParse(User.FindFirst("sid")?.Value, out playerId))
+                    return Unauthorized();
+
+                var model = await _gameService.CreateNextTurn(characterId, command, testOnly);
+
+                return Ok(model);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
             }
         }
 

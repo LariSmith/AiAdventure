@@ -12,7 +12,7 @@ namespace AiAdventure.Services
             var model = JsonParse.ParseTurnModel(turnJson);
             var commands = String.Join(",", model.Commands);
 
-            character.AddTurn(model.Number, model.Weather, model.Scene, model.CurrentDay, model.PeriodDay, commands);
+            character.AddTurn(model.Number, model.Weather, model.Scene, model.CurrentDay, model.PeriodDay, commands, turnJson.ToString());
         }
 
     }

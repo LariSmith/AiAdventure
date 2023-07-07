@@ -39,6 +39,7 @@ namespace AiAdventure.Services
                                         ""Wisdom"": 12,
                                         ""Charisma"": 16,
                                         ""background"": ""Criminal"",
+                                        ""gold"": 10,
                                         ""skills"": {
                                             ""Acrobatics"": 7,
                                             ""Stealth"": 10,
@@ -89,6 +90,7 @@ namespace AiAdventure.Services
                                                     ""Intelligence"": 14,
                                                     ""Wisdom"": 13,
                                                     ""Charisma"": 16,
+                                                    ""gold"": 10,
                                                     ""background"": ""Criminal"",
                                                     ""skills"": {
                                                         ""Acrobatics"": 5,
@@ -159,7 +161,6 @@ namespace AiAdventure.Services
                                                 ""day_number"": 1,
                                                 ""weather"": ""Clear"",
                                                 ""location"": ""The Village of Oakmere"",
-                                                ""gold"": 10,
                                                 ""quests"": [],
                                                 ""npcs"": [],
                                                 ""creatures"": [],
@@ -175,7 +176,6 @@ namespace AiAdventure.Services
                                                 ""day_number"": 3,
                                                 ""weather"": ""Sunny"",
                                                 ""location"": ""The City of Eldoria"",
-                                                ""gold"": 150,
                                                 ""quests"": [
                                                   {
                                                     ""name"": ""The Lost Artifact"",
@@ -223,11 +223,9 @@ namespace AiAdventure.Services
                 {
                         new ChatMessage(ChatMessageRole.System, _configuration.GetSection("OpenAi")["rulesNewGame"]),
                         new ChatMessage(ChatMessageRole.System, $"This is the character: {character}"),
-                        new ChatMessage(ChatMessageRole.User,  "Generate Turn"),
+                        new ChatMessage(ChatMessageRole.User,  "Generate Initial Turn"),
                         new ChatMessage(ChatMessageRole.Assistant, expectedResponseTurn1),
-                        new ChatMessage(ChatMessageRole.User, "Generate Turn"),
-                        new ChatMessage(ChatMessageRole.Assistant, expectedResponseTurn2),
-                        new ChatMessage(ChatMessageRole.User, "Generate Turn")
+                        new ChatMessage(ChatMessageRole.User, "Generate Initial Turn")
                 }
             });
 
@@ -235,6 +233,102 @@ namespace AiAdventure.Services
             var turnJson = JObject.Parse(turnResponse);
 
             return turnJson;
+        }
+
+        public async Task<JObject> GenerateNextTurnJson(string characterJson, string lastTurnJson, string gameLog, string command, bool testOnly = false)
+        {
+            var api = new OpenAIAPI(_key);
+
+            string expectedResponseTurn1 = @"{
+                                            ""status"": ""success"",
+                                            ""data"": {
+                                            ""turn_number"": 5,
+                                            ""time_period"": ""Morning"",
+                                            ""day_number"": 1,
+                                            ""weather"": ""Clear"",
+                                            ""location"": ""The Village of Oakmere"",
+                                            ""quests"": [
+                                            {
+                                            ""name"": ""Missing Ingredients"",
+                                            ""status"": ""Not Started"",
+                                            ""description"": ""I'm running low on some essential ingredients for my famous stew. Could you gather some mushrooms from the nearby forest for me?""
+                                            }
+                                            ],
+                                            ""npcs"": [
+                                            {
+                                            ""name"": ""Tavernkeeper Griselda"",
+                                            ""role"": ""Tavernkeeper"",
+                                            ""description"": ""A stout woman with a warm smile, she runs the local tavern.""
+                                            }
+                                            ],
+                                            ""creatures"": [],
+                                            ""game_scene_description"": ""Tavernkeeper Griselda appreciates your willingness to help. She explains, 'I'm running low on some essential ingredients for my famous stew. Could you gather some mushrooms from the nearby forest for me?'"",
+                                            ""commands"": [""Accept the quest"", ""Decline the quest"", ""Ask for more details"", ""Thank her and leave the tavern""]
+                                            }
+                                            }";
+            string expectedResponseTurn2 = @"{
+                                        ""status"": ""success"",
+                                        ""data"": {
+                                        ""turn_number"": 6,
+                                        ""time_period"": ""Morning"",
+                                        ""day_number"": 1,
+                                        ""weather"": ""Clear"",
+                                        ""location"": ""The Village of Oakmere"",
+                                        ""quests"": [
+                                        {
+                                        ""name"": ""Missing Ingredients"",
+                                        ""status"": ""In Progress"",
+                                        ""description"": ""I'm running low on some essential ingredients for my famous stew. Could you gather some mushrooms from the nearby forest for me?""
+                                        }
+                                        ],
+                                        ""npcs"": [
+                                        {
+                                        ""name"": ""Tavernkeeper Griselda"",
+                                        ""role"": ""Tavernkeeper"",
+                                        ""description"": ""A stout woman with a warm smile, she runs the local tavern.""
+                                        }
+                                        ],
+                                        ""creatures"": [],
+                                        ""game_scene_description"": ""You accept Tavernkeeper Griselda's quest to gather mushrooms from the nearby forest. She thanks you and hands you a small pouch to collect the mushrooms."",
+                                        ""commands"": [""Head to the forest"", ""Ask for directions to the forest"", ""Inquire about any dangers in the forest"", ""Thank her and leave the tavern""]
+                                        }
+                                        }";
+
+            if (testOnly)
+                return JObject.Parse(expectedResponseTurn1);
+
+            var chatFirstTurn = await api.Chat.CreateChatCompletionAsync(new ChatRequest()
+            {
+                Model = Model.ChatGPTTurbo,
+                Temperature = 0.1,
+                MaxTokens = 1100,
+                Messages = new ChatMessage[]
+                {
+                        new ChatMessage(ChatMessageRole.System, _configuration.GetSection("OpenAi")["rulesDefault"]),
+                        new ChatMessage(ChatMessageRole.System, $"This is the character: {characterJson}"),
+                        new ChatMessage(ChatMessageRole.System, $"This is the previews action of the player: {gameLog}"),
+                        new ChatMessage(ChatMessageRole.System, $"This is the last turn: {lastTurnJson}"),
+                        new ChatMessage(ChatMessageRole.User, $"Generate next turn. Command: {command} ")
+                }
+            });
+
+            var turnResponse = chatFirstTurn.Choices[0].Message.Content;
+            var turnJson = JObject.Parse(GetSubstringBetweenBraces(turnResponse));
+
+            return turnJson;
+        }
+
+        private string GetSubstringBetweenBraces(string input)
+        {
+            int startIndex = input.IndexOf('{');
+            int endIndex = input.LastIndexOf('}');
+
+            if (startIndex == -1 || endIndex == -1 || endIndex <= startIndex)
+                return string.Empty;
+
+            string result = input.Substring(startIndex, input.Length - startIndex);
+
+            return result;
         }
     }
 }

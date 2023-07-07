@@ -14,5 +14,10 @@ namespace AiAdventure.Repositories
         {
             return await _set.Where(x => x.PlayerId == playerId).ToListAsync();
         }
+
+        public async Task<Character> GetCharacterJoinTurnJoinLog(int characterId)
+        {
+            return await _set.Where(x => x.Id == characterId).Include(x => x.Turns).Include(x => x.GameLogs).FirstAsync();
+        }
     }
 }
